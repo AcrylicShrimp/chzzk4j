@@ -10,12 +10,16 @@ import xyz.r2turntrue.chzzk4j.exception.ChatFailedConnectException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
 import java.util.HashMap;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class ChatWebsocketClient extends WebSocketClient {
 
     private ChzzkChat chat;
     private Gson gson;
     private String sid;
+    private ScheduledExecutorService executor;
 
     public ChatWebsocketClient(ChzzkChat chat, URI websocketUri) {
         super(websocketUri);
@@ -24,6 +28,7 @@ public class ChatWebsocketClient extends WebSocketClient {
                 .newBuilder()
                 .disableHtmlEscaping()
                 .create();
+        this.executor = Executors.newSingleThreadScheduledExecutor();
     }
 
     private HashMap<Integer, Class<?>> clientboundMessages = new HashMap<>() {{
@@ -92,6 +97,12 @@ public class ChatWebsocketClient extends WebSocketClient {
                     for (ChatEventListener listener : chat.listeners) {
                         listener.onConnect(chat, chat.reconnecting);
                     }
+
+                    Runnable task = () -> {
+                        this.send(gson.toJson(new WsMessageServerboundPing()));
+                    };
+
+                    executor.scheduleAtFixedRate(task, 0, 20, TimeUnit.SECONDS);
                 } else {
                     throw new ChatFailedConnectException(msg.retCode, msg.retMsg);
                 }
@@ -179,6 +190,8 @@ public class ChatWebsocketClient extends WebSocketClient {
 
         if (shouldReconnect) {
             chat.reconnectAsync();
+        } else {
+            executor.shutdownNow();
         }
     }
 
