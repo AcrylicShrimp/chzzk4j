@@ -79,10 +79,6 @@ class ChzzkSession {
     }
 
     public CompletableFuture<Boolean> subscribeAsync(ChzzkSessionSubscriptionType subscriptionType) {
-        if (!userSession) {
-            throw new IllegalStateException("This API requires the user session!");
-        }
-
         return CompletableFuture.supplyAsync(() -> {
             if (subscriptions.contains(subscriptionType)) {
                 return false;
