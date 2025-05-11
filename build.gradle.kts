@@ -13,13 +13,13 @@ plugins {
 group = "io.github.R2turnTrue"
 version = "0.1.1"
 
-val publishProps = Properties()
-publishProps.load(
-    File("publish.properties").inputStream())
-
-ext["signing.keyId"] = publishProps["signing.keyId"]
-ext["signing.password"] = publishProps["signing.password"]
-ext["signing.secretKeyRingFile"] = publishProps["signing.secretKeyRingFile"]
+//val publishProps = Properties()
+//publishProps.load(
+//    File("publish.properties").inputStream())
+//
+//ext["signing.keyId"] = publishProps["signing.keyId"]
+//ext["signing.password"] = publishProps["signing.password"]
+//ext["signing.secretKeyRingFile"] = publishProps["signing.secretKeyRingFile"]
 
 repositories {
     mavenCentral()
@@ -72,10 +72,10 @@ publishing {
                     //url = uri(if (version.toString().endsWith("SNAPSHOT")) snapshotsRepoUrl else releasesRepoUrl)
                     url = uri(releasesRepoUrl)
 
-                    credentials.runCatching {
-                        username = publishProps["nexusUsername"] as String
-                        password = publishProps["nexusPassword"] as String
-                    }
+//                    credentials.runCatching {
+//                        username = publishProps["nexusUsername"] as String
+//                        password = publishProps["nexusPassword"] as String
+//                    }
                 }
             }
 
