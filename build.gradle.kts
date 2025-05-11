@@ -37,9 +37,9 @@ dependencies {
     implementation("io.socket:socket.io-client:1.0.2")
 }
 
-tasks.test {
-    useJUnitPlatform()
-}
+//tasks.test {
+//    useJUnitPlatform()
+//}
 
 tasks.compileJava {
     options.encoding = "UTF-8"
@@ -53,63 +53,63 @@ java {
     withJavadocJar()
     withSourcesJar()
 }
-
-publishing {
-    publications {
-        create<MavenPublication>(rootProject.name) {
-            artifactId = "chzzk4j"
-            groupId = "io.github.R2turnTrue"
-
-            version = "0.1.1"
-
-            from(components["java"])
-
-            repositories {
-                maven {
-                    name = "MavenCentral"
-                    val releasesRepoUrl = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
-                    //val snapshotsRepoUrl = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
-                    //url = uri(if (version.toString().endsWith("SNAPSHOT")) snapshotsRepoUrl else releasesRepoUrl)
-                    url = uri(releasesRepoUrl)
-
-//                    credentials.runCatching {
-//                        username = publishProps["nexusUsername"] as String
-//                        password = publishProps["nexusPassword"] as String
+//
+//publishing {
+//    publications {
+//        create<MavenPublication>(rootProject.name) {
+//            artifactId = "chzzk4j"
+//            groupId = "io.github.R2turnTrue"
+//
+//            version = "0.1.1"
+//
+//            from(components["java"])
+//
+//            repositories {
+//                maven {
+//                    name = "MavenCentral"
+//                    val releasesRepoUrl = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
+//                    //val snapshotsRepoUrl = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
+//                    //url = uri(if (version.toString().endsWith("SNAPSHOT")) snapshotsRepoUrl else releasesRepoUrl)
+//                    url = uri(releasesRepoUrl)
+//
+////                    credentials.runCatching {
+////                        username = publishProps["nexusUsername"] as String
+////                        password = publishProps["nexusPassword"] as String
+////                    }
+//                }
+//            }
+//
+//            pom {
+//                name = "chzzk4j"
+//                description = "Unofficial Java API library of CHZZK (치지직, the video streaming service of Naver)"
+//                url = "https://github.com/R2turnTrue/chzzk4j"
+//
+//                developers {
+//                    developer {
+//                        name = "R2turnTrue"
+//                        email = "r3turntrue@gmail.com"
+//                        url = "https://github.com/R2turnTrue"
 //                    }
-                }
-            }
-
-            pom {
-                name = "chzzk4j"
-                description = "Unofficial Java API library of CHZZK (치지직, the video streaming service of Naver)"
-                url = "https://github.com/R2turnTrue/chzzk4j"
-
-                developers {
-                    developer {
-                        name = "R2turnTrue"
-                        email = "r3turntrue@gmail.com"
-                        url = "https://github.com/R2turnTrue"
-                    }
-                }
-
-                scm {
-                    connection = "scm:git:git://github.com/R2turnTrue/chzzk4j.git"
-                    developerConnection = "scm:git:ssh://github.com:R2turnTrue/chzzk4j.git"
-                    url = "https://github.com/R2turnTrue/chzzk4j/tree/master"
-                }
-
-                licenses {
-                    license {
-                        name = "MIT License"
-                        url = "https://opensource.org/license/mit/"
-                    }
-                }
-            }
-        }
-    }
-}
-
-signing {
-    isRequired = true
-    sign(publishing.publications[rootProject.name])
-}
+//                }
+//
+//                scm {
+//                    connection = "scm:git:git://github.com/R2turnTrue/chzzk4j.git"
+//                    developerConnection = "scm:git:ssh://github.com:R2turnTrue/chzzk4j.git"
+//                    url = "https://github.com/R2turnTrue/chzzk4j/tree/master"
+//                }
+//
+//                licenses {
+//                    license {
+//                        name = "MIT License"
+//                        url = "https://opensource.org/license/mit/"
+//                    }
+//                }
+//            }
+//        }
+//    }
+//}
+//
+//signing {
+//    isRequired = true
+//    sign(publishing.publications[rootProject.name])
+//}
